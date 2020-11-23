@@ -15,8 +15,6 @@ export const getGists = (params: GetGistsParams = {}): AppThunk => async (
 ) => {
    
   const { page = 0, inPage = 10, since } = params; 
-  console.log("result", page * inPage);
-  
   let url = `${GITHUB_API}/gists/public?page=${page}&per_page=${inPage}`;
 
   if (since) { 

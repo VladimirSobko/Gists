@@ -11,7 +11,6 @@ import { TextField } from '@material-ui/core';
 import { setDate } from 'src/redux/slices/gists';
 // import Button from '@material-ui/core/Button';
 
-
 export interface DashboardProps {}
 
 const Dashboard: NextPage<DashboardProps> = () => {

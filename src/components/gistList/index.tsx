@@ -1,22 +1,36 @@
 import { Grid } from '@material-ui/core';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'src/redux/Store';
 import { Gist } from '../gist';
+import Pagination from '../Pagination/Pagination';
 import { getGists } from '../../redux/thunks/gists/getGists';
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-
 export interface GistListProps {}
 export const GistList: React.FC<GistListProps> = () => {
-  const dispatch = useDispatch();
+
   const { isLoading, gists, date } = useSelector((state: RootState) => {  
-    return state.gists;
-  });
+  return state.gists;
+});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPagePagination] = useState(10);
+  const [allPostsLength] = useState(gists.length);
+  const dispatch = useDispatch();
+
+
+  const indexOfLastPage = currentPage * allPostsLength; 
+  const indexOfFirstPost = indexOfLastPage - allPostsLength;
+  const currentPosts = gists.slice(indexOfFirstPost, indexOfLastPage);
   
   useEffect(() => {   
-    dispatch(getGists( { page: 3, inPage: 20, since : date ? new Date(date) : "" }));
-  }, [date]);
+    dispatch(getGists( { page: currentPage, inPage: allPostsLength, since : date ? new Date(date) : "" }));
+  }, [date,currentPage ]);
+
+  function paginate(currentPage) {
+    console.log(currentPage); 
+    setCurrentPage(currentPage)
+  }
 
   return (
     <>
@@ -34,6 +48,7 @@ export const GistList: React.FC<GistListProps> = () => {
           </Grid>
         </Grid>
       )}
+      <Pagination postsPerPagePagination={postsPerPagePagination} totalPage={gists.length} paginate={paginate}/>
     </div>
     </>
   );
