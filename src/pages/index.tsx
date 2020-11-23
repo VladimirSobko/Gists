@@ -8,21 +8,24 @@ import Toolbar from '@material-ui/core/Toolbar/Toolbar';
 import Typography from '@material-ui/core/Typography/Typography';
 import { Container, CssBaseline } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
-import  { setNewDate }  from '../redux/slices/gists/index';
+import { setDate } from 'src/redux/slices/gists';
+// import Button from '@material-ui/core/Button';
 
 
 export interface DashboardProps {}
 
 const Dashboard: NextPage<DashboardProps> = () => {
-
-  // const [ date, setDate ] = useState("");
-  const dispatch = useDispatch();
  
-  function setInputDate(e) {  
-    setNewDate.payload = e.target.value;  
-    console.log(setNewDate.payload);
-    dispatch(setNewDate) 
+  const dispatch = useDispatch();
+  const errorState = useSelector((state => state.gists));
+  
+  function setInputDate(e) {      
+    dispatch(setDate(e.target.value)) 
   }
+
+  // function getOrganisations() {
+  //   dispatch(getOrganisations())
+  // }
 
   return (
     <>
@@ -39,8 +42,9 @@ const Dashboard: NextPage<DashboardProps> = () => {
           <Grid container spacing={6} direction="column">
             <section>
               <Typography variant="h2">Gists</Typography>
-              <TextField onChange={setInputDate} style={{margin: "10px"}} id="standard-basic"  type="date" />
-              <GistList />
+              <TextField onChange={setInputDate} style={{margin: "10px"}} id="standard-basic" type="date"/>
+              {/* <Button onClick={getOrganisations} variant="contained" color="primary">Show organisation</Button> */}
+              { errorState.error ? <h1 style={{fontSize: "50px", textAlign: "center"}}>{errorState.error}</h1> : <GistList /> }
             </section>
           </Grid>
         </div>
@@ -49,11 +53,5 @@ const Dashboard: NextPage<DashboardProps> = () => {
   );
 };
 
-// const loadingStatus = useSelector((state) => state.dev.loading);
-// const errorStatus = useSelector((state) => state.dev.error);
-// return (
-//   <>
-//     {loadingStatus ? <CircularProgress /> : ""}
-//     {errorStatus ? <h3>{errorStatus}</h3> : ""}
 
 export default Dashboard;

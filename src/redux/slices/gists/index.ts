@@ -5,6 +5,7 @@ import { GistData } from 'src/types/GistData';
 export interface GistsState {
   isLoading: boolean;
   gists: GistData[];
+  organisations: GistData[];
   error?: string;
   date?: string;
 }
@@ -12,7 +13,9 @@ export interface GistsState {
 const initialState: GistsState = {
   isLoading: true,
   gists: [],
+  organisations: [],
   date: "",
+  error: "",
 };
 
 const gistsSlice = createSlice({
@@ -23,16 +26,17 @@ const gistsSlice = createSlice({
       state.isLoading = false;
       state.gists = action.payload;
     },
-
     setGistsError(state, action: PayloadAction<string>) {
       state.error = action.payload;
     },
     setDate(state, action: PayloadAction<string>) {
       state.date = action.payload;
-    }
+    },
+    // getOrganisations(state, action: PayloadAction<string>) {
+    //   state.organisations = action.payload;
+    // }
   },
 });
 
 export const { setDate, setGists, setGistsError } = gistsSlice.actions;
 export const gistsReducer = gistsSlice.reducer;
-export const setNewDate = gistsSlice.actions.setDate("дата");
