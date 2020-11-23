@@ -5,6 +5,7 @@ import {
   Typography,
   CardHeader,
   Avatar,
+  Button,
 } from '@material-ui/core';
 import React from 'react';
 import { GistData } from 'src/types/GistData';

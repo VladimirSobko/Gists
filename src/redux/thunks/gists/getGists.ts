@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { setGists, setGistsError } from 'src/redux/slices/gists';
 import { AppThunk } from 'src/redux/Store';
 import { GITHUB_API } from '../config';

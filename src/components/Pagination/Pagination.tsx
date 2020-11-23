@@ -1,11 +1,15 @@
 import { Divider } from '@material-ui/core';
 import React, { useState } from 'react';
 
-export default function Pagination({postsPerPagePagination, totalPage, paginate}) {
+export default function Pagination({postsPerPagePagination, totalPosts, paginate}) {
+  console.log("&&&&&&&",postsPerPagePagination, totalPosts);
+  
   const pageNumbers = [];
-  for(let i = 1; i <= Math.ceil(totalPage/postsPerPagePagination);i++){
+  for(let i = 1; i <= Math.ceil(totalPosts/postsPerPagePagination);i++){
     pageNumbers.push(i)
   }
+  console.log(">>>>>",pageNumbers);
+  
   return (
    <div>
      <nav>
